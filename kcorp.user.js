@@ -1,28 +1,26 @@
 // ==UserScript==
-// @name         Reddit Place - Armée de Kameto
-// @namespace    https://github.com/CorentinGC/reddit-place-kcorp
-// @version      0.12
+// @name         ZEvent Place - Armée de Kameto
+// @namespace    https://github.com/YoannLD/zevent-place-kcorp
+// @version      0.13
 // @description  On va récuperer ce qui nous est dû de droit.
-// @author       Adcoss95 & CorentinGC
-// @match        https://hot-potato.reddit.com/embed*
-// @match        https://new.reddit.com/r/place/*
-// @match        https://www.reddit.com/r/place/*
-// @icon         https://raw.githubusercontent.com/CorentinGC/reddit-place-kcorp/main/icon.jpg
+// @author       Adcoss95 & CorentinGC & Nostral
+// @match        https://place.zevent.fr/*
+// @icon         https://raw.githubusercontent.com/YoannLD/zevent-place-kcorp/main/icon.jpg
 // @grant        none
-// @downloadURL  https://raw.githubusercontent.com/CorentinGC/reddit-place-kcorp/main/kcorp.user.js
-// @updateURL    https://raw.githubusercontent.com/CorentinGC/reddit-place-kcorp/main/kcorp.user.js
-// @supportURL   https://github.com/CorentinGC/reddit-place-kcorp/issues
+// @downloadURL  https://raw.githubusercontent.com/YoannLD/zevent-place-kcorp/main/kcorp.user.js
+// @updateURL    https://raw.githubusercontent.com/YoannLD/zevent-place-kcorp/main/kcorp.user.js
+// @supportURL   https://github.com/YoannLD/zevent-place-kcorp/issues
 
 // ==/UserScript==
 
-// credits to the osu! logo team for script base !
-const DEBUG = false;
+// credits to the osu! logo team and CorentinGC for script base !
+const DEBUG = true;
 
 const UPDATE_URL = GM_info.script.updateURL;
 const DISCORD_URL = "https://discord.gg/kameto";
-const OVERLAY_URL = "https://raw.githubusercontent.com/CorentinGC/reddit-place-kcorp/main/overlay.png";
-const VERSION_URL = "https://raw.githubusercontent.com/CorentinGC/reddit-place-kcorp/main/version.json";
-const REDDIT_URL = "https://new.reddit.com/r/place/";
+const OVERLAY_URL = "https://raw.githubusercontent.com/YoannLD/zevent-place-kcorp/main/overlay.png";
+const VERSION_URL = "https://raw.githubusercontent.com/YoannLD/zevent-place-kcorp/main/version.json";
+const PLACE_URL = "https://place.zevent.fr/";
 
 const allowedLangs = ['fr', 'en'];
 const defaultOpts = {
@@ -54,7 +52,7 @@ const refreshOpts = () => {
 const LANGS = {
     fr: {
         update_available: "Mise à jour disponible v{{0}} > v{{1}} ! Cliquez ici pour l'installer",
-        update_reload: "La page va se recharger dans 5secondes, ou vous pouvez le faire manuellement.",
+        update_reload: "La page va se recharger dans 5 secondes, ou vous pouvez le faire manuellement.",
         show: "Afficher",
         hide: "Cacher",
         enable: "Activer",
@@ -66,11 +64,11 @@ const LANGS = {
         btn_toggle_cache: "{{0}} le cache de l'overlay",
         overlay_opacity: "Opacité de l'overlay",
         join_discord: "Rejoindre le discord de Kamet0",
-        by_shadow_team: "KCorp's overlay v{{0}} par la Team de L'Ombre"
+        by_nostral: "KCorp's overlay v{{0}} par Nostral"
     },
     en: {
         update_available: "`Update available v{{0}} > v{{1}} ! Click here to install`",
-        update_reload: "Page will reload after 5seconds, but you can do it manually.",
+        update_reload: "Page will reload after 5 seconds, but you can do it manually.",
         show: "Show",
         hide: "Hide",
         enable: "Enable",
@@ -82,7 +80,7 @@ const LANGS = {
         btn_toggle_cache: "{{0}} overlay's cache",
         overlay_opacity: "Overlay's opacity",
         join_discord: "Join Kamet0's discord !",
-        by_shadow_team: "KCorp's overlay v{{0}} by la Shadow's Team"
+        by_nostral: "KCorp's overlay v{{0}} by Nostral"
     },
 };
 const f = (key, ...vars) => {
@@ -164,24 +162,19 @@ const showUpdate = (version) => {
 (async function() {
     log("Loading KCorp module");
 
-    if (window.top !== window.self) {
         const overlayURL = () => OVERLAY_URL+(opts.ENABLE_IMGNOCACHE ? "?t="+new Date().getTime() : "");
         log({opts});
 
         window.addEventListener("load", () => {
+
             log("Searching embed");
-            let embed = document.getElementsByTagName("mona-lisa-embed");
+            let embed = document.getElementsByClassName("game");
             if ("undefined" === typeof embed || embed.length < 1) return;
             log("Found embed");
 
-            log("Searching canvas");
-            let canvas = embed[0].shadowRoot.children[0].getElementsByTagName("mona-lisa-canvas");
-            if ("undefined" === typeof canvas || canvas.length < 1) return;
-            log("Found canvas");
-
             log("Searching canvasContainer");
-            let canvasContainer = canvas[0].shadowRoot.children[0].getElementsByTagName("canvas");
-            if ("undefined" === typeof canvasContainer || canvasContainer.length < 1) return;
+            let canvasContainer = document.getElementById("place-canvas");
+            if ("undefined" === typeof canvasContainer) return;
             log("Found canvasContainer");
 
             let overlay, timer;
@@ -204,11 +197,11 @@ const showUpdate = (version) => {
                 overlay.style.left = 0;
                 overlay.style.top = 0;
                 overlay.style.imageRendering = "pixelated";
-                overlay.style.width = "2000px";
-                overlay.style.height = "2000px";
+                overlay.style.width = "500px";
+                overlay.style.height = "500px";
                 overlay.style.opacity = + opts.OVERLAY_STATE;
                 
-                canvasContainer[0].parentNode.appendChild(overlay);
+                canvasContainer.parentNode.appendChild(overlay);
                 log("Overlay reloaded");
             }
 
@@ -388,10 +381,10 @@ const showUpdate = (version) => {
                 credits.id = "kc-credits";
 
                 const versionSpan = document.createElement("span");
-                versionSpan.innerHTML = f("by_shadow_team", GM_info.script.version);
+                versionSpan.innerHTML = f("by_nostral", GM_info.script.version);
                 versionSpan.style.position = "fixed";
                 versionSpan.style.bottom = "10px";
-                versionSpan.style.right = "10px";
+                versionSpan.style.right = "20%";
                 defaultStyle(versionSpan);
                 defaultSpan(versionSpan);
 
@@ -416,9 +409,5 @@ const showUpdate = (version) => {
             showOverlay();
             showUi();
         }, false);
-    } else checkVersion()
     log("KCorp module loaded");
 })();
-
-
-
