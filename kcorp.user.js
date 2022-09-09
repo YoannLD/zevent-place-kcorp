@@ -200,6 +200,7 @@ const showUpdate = (version) => {
                 overlay.style.width = "500px";
                 overlay.style.height = "500px";
                 overlay.style.opacity = + opts.OVERLAY_STATE;
+                overlay.style.background = "none";                
                 
                 canvasContainer.parentNode.appendChild(overlay);
                 log("Overlay reloaded");
