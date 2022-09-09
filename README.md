@@ -1,7 +1,7 @@
 # zevent-place-kcorp
 original authors : 
 oralekin, LittleEndu, ekgame, Wieku, DeadRote
-
+GeorgeAbitbol
 
 Adapté pour le Zevent Place par Nostral 
 
