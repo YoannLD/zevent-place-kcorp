@@ -1,4 +1,4 @@
-# reddit-place-kcorp
+# zevent-place-kcorp
 original authors : 
 oralekin, LittleEndu, ekgame, Wieku, DeadRote
 
@@ -26,4 +26,4 @@ Adapté pour le Zevent Place par Nostral
 
 ▶️ - **Click on the link to install it automatically:** https://github.com/YoannLD/zevent-place-kcorp/raw/main/kcorp.user.js
 
-▶️ - Go to the <a href="https://place.zevent.fr/">ZEvent /place</a> page *(or refresh the page with `F5` or `Shift+F5` to empty the cache)*, and go all the way to the **BOTTOM LEFT**, you should see the layer appear (colored dots)
+▶️ - Go to the <a href="https://place.zevent.fr/">ZEvent /place</a> page *(or refresh the page with `F5` or `Shift+F5` to empty the cache)*, you should see the layer appear (colored dots)
