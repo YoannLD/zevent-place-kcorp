@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         ZEvent Place - Armée de Kameto
 // @namespace    https://github.com/YoannLD/zevent-place-kcorp
-// @version      0.13
+// @version      0.14
 // @description  On va récuperer ce qui nous est dû de droit.
 // @author       Adcoss95 & CorentinGC & Nostral
 // @match        https://place.zevent.fr/*
@@ -197,8 +197,8 @@ const showUpdate = (version) => {
                 overlay.style.left = 0;
                 overlay.style.top = 0;
                 overlay.style.imageRendering = "pixelated";
-                overlay.style.width = "500px";
-                overlay.style.height = "500px";
+                overlay.style.width = "700px";
+                overlay.style.height = "700px";
                 overlay.style.opacity = + opts.OVERLAY_STATE;
                 overlay.style.background = "none";                
                 
